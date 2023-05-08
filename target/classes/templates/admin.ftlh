@@ -114,24 +114,31 @@
                     <hr>
                     <h3> Добавить перелет</h3>
 
-                    <form action="/flight/create" method="post">
+                    <form action="/flight/create" class="needs-validation" novalidate method="post">
                         <div class="form-row ">
                             <div class="col  mb-3">
                                 <label for="validationDefault01">Самолет</label>
                                 <input type="text" class="form-control" id="validationDefault01"
                                        placeholder="Airbus"
                                        name="airplane" required>
+                                <div class="invalid-feedback">
+                                    Введите название самолета.
+                                </div>
                             </div>
 
 
                             <div class="col  mb-3">
                                 <label for="inputState">Класс</label>
                                 <select name="description" id="inputState" class="form-control" required>
+                                    <option selected disabled value="">Выберите...</option>
                                     <option value="1">Бизнес</option>
                                     <option value="2">Комфорт</option>
                                     <option value="3">Эконом</option>
                                     <option value="4">Первый класс</option>
                                 </select>
+                                <div class="invalid-feedback">
+                                    Выберите тип полета.
+                                </div>
                             </div>
                             <div class="col col-lg-2 mb-3">
                                 <label for="validationDefaultUsername">Стоимость</label>
@@ -139,16 +146,22 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroupPrepend2">$</span>
                                     </div>
-                                    <input type="number" class="form-control" id="validationDefault03"
+                                    <input type="number"  min="0" max="100000" class="form-control" id="validationDefault03"
                                            placeholder="100" name="price" aria-describedby="inputGroupPrepend2"
                                            required>
+                                    <div class="invalid-feedback">
+                                        Укажите верную цену.
+                                    </div>
                                 </div>
                             </div>
                             <div class="col col-lg-2 mb-3">
                                 <label for="validationDefaultUsername">Кол-во мест</label>
-                                <input type="number" class="form-control" id="validationDefault03"
+                                <input type="number" min="35" max="55" class="form-control" id="validationDefault03"
                                        placeholder="45" name="amount" aria-describedby="inputGroupPrepend2"
                                        required>
+                                <div class="invalid-feedback">
+                                    Укажите кол-во 35-55.
+                                </div>
                             </div>
 
 
@@ -158,27 +171,39 @@
 
                             <div class="col  mb-3">
                                 <label for="validationDefault01">Откуда</label>
-                                <input type="text" class="form-control" id="validationDefault01"
+                                <input type="text" pattern="^[а-яА-Я]+$" class="form-control" id="validationDefault01"
                                        placeholder="Минск"
                                        name="cityFrom" required>
+                                <div class="invalid-feedback">
+                                    Введите настоящий город.
+                                </div>
                             </div>
                             <div class="col  mb-3">
                                 <label for="validationDefault01">Куда</label>
-                                <input type="text" class="form-control" id="validationDefault01"
+                                <input type="text"  pattern="^[а-яА-Я]+$" class="form-control" id="validationDefault01"
                                        placeholder="Москва"
                                        name="cityDest" required>
+                                <div class="invalid-feedback">
+                                    Введите настоящий город.
+                                </div>
                             </div>
                             <div class="col  mb-3">
                                 <label for="validationDefault01">Вылет</label>
                                 <input type="datetime-local" class="form-control" id="validationDefault01"
                                        placeholder="Вылет"
                                        name="departure" required>
+                                <div class="invalid-feedback">
+                                    Выберите дату.
+                                </div>
                             </div>
                             <div class="col  mb-3">
                                 <label for="validationDefault01">Прибытие</label>
                                 <input type="datetime-local" class="form-control" id="validationDefault01"
                                        placeholder="Прибытие"
                                        name="arrival" required>
+                                <div class="invalid-feedback">
+                                    Выберите дату.
+                                </div>
                             </div>
 
 
@@ -314,6 +339,21 @@
     </div>
 
 
+
+    <script>
+        const forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })</script>
 
 
 </@c.page>
